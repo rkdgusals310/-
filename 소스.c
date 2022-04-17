@@ -6,12 +6,12 @@
 void swap(int arr[], int a, int b);
 void ex_sort(int arr[], int size);
 void mg_sort(int arr[], int L, int R, int* sortArr);
-void mgTwoArea(int arr[], int L, int M, int R, int* sortArr);
+void mg_twoarea(int arr[], int L, int M, int R, int* sortArr);
 //void swap1(int arr[], int a, int b);
-int partition(int arr[], int L, int R);
+int pt(int arr[], int L, int R);
 void q_sort(int arr[], int L, int R);
 //void swap(int arr[], int i, int j);
-void heapify(int arr[], int size, int i);
+void hp_ify(int arr[], int size, int i);
 void hp_sort(int arr[], int size);
 void rd_sort(int* a, int n, int result[]);
 
@@ -123,7 +123,7 @@ void ex_sort(int arr[], int size)
 	}
 }
 //Mergesort
-void mgTwoArea(int arr[], int L, int M, int R,int sortArr[])
+void mg_twoarea(int arr[], int L, int M, int R,int sortArr[])
 {
 	int l_idx = L;   
 	int r_idx = M + 1;  
@@ -173,7 +173,7 @@ void mg_sort(int arr[], int L, int R, int* sortArr)
 		M = (L + R) / 2;
 		mg_sort(arr, L, M, sortArr);
 		mg_sort(arr, M + 1, R, sortArr);
-		mgTwoArea(arr, L, M, R, sortArr);
+		mg_twoarea(arr, L, M, R, sortArr);
 	}
 }
 
@@ -183,7 +183,7 @@ void mg_sort(int arr[], int L, int R, int* sortArr)
 	arr[a] = arr[b];
 	arr[b] = temp;
 }*/
-int partition(int arr[], int L, int R) 
+int pt(int arr[], int L, int R) 
 {
 	int pivot = arr[L], low = L + 1, high = R, temp;
 	while (low <= high) {
@@ -197,7 +197,7 @@ int partition(int arr[], int L, int R)
 void q_sort(int arr[], int L, int R) 
 {
 	if (L <= R) {
-		int pivot = partition(arr, L, R);
+		int pivot = pt(arr, L, R);
 		q_sort(arr, L, pivot - 1);
 		q_sort(arr, pivot + 1, R);
 	}
@@ -210,7 +210,7 @@ void q_sort(int arr[], int L, int R)
 	arr[i] = arr[j];
 	arr[j] = temp;
 }*/
-void heapify(int arr[], int size, int i)
+void hp_ify(int arr[], int size, int i)
 {
 
 	int c = 2 * i + 1;
@@ -222,19 +222,19 @@ void heapify(int arr[], int size, int i)
 		swap(arr, i, c);
 	
 	if (c < size / 2)
-		heapify(arr, size, c);
+		hp_ify(arr, size, c);
 }
 void hp_sort(int arr[], int size) 
 {
 	for (int i = size / 2; i >= 0; i--) 
 	{
-		heapify(arr, size, i);
+		hp_ify(arr, size, i);
 	}
 
 	for (int i = size - 1; i >= 0; i--)
 	{
 		swap(arr, i, 0);
-		heapify(arr, i, 0);
+		hp_ify(arr, i, 0);
 	}
 
 }
